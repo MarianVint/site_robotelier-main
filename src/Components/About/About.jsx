@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './About.css';
 import about_img from '../../assets/about_img.jpg';
 import play_img from '../../assets/play-icon.png';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
 const About = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className='about' id="about">
       <div className='about-left'>
         <div className='image-wrapper'>
           <img src={about_img} alt="About Image" className='about-img' />
-          <img src={play_img} alt="Play Icon" className='play-icon' />
+          <img
+            src={play_img}
+            alt="Play Icon"
+            className='play-icon'
+            onClick={openModal} // Open modal on click
+          />
         </div>
       </div>
 
@@ -38,6 +49,16 @@ const About = () => {
           iar sprijinul reciproc transformă conceptele în realizări concrete.
         </p>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={closeModal}>X</button>
+            <VideoPlayer />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
