@@ -1,0 +1,150 @@
+.Testimonials {
+    margin: 80px auto;
+    padding: 0 80px;
+    position: relative;
+}
+
+.next {
+    right: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+.next, .prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Center the button vertically */
+    background: #212ea0; /* Background color for the circle */
+    border-radius: 50%;
+    padding: 13px; /* Reduce padding to allow more space for the image */
+    width: 50px; /* Increase width for the circle */
+    height: 50px; /* Increase height for the circle */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.next:hover, .prev:hover {
+    transform: translateY(-50%) scale(1.1); /* Combine translateY and scale */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+.next img, .prev img {
+    width: 100%; /* Increase the size of the image relative to the circle */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits within the circle */
+}
+
+.slider{
+    overflow: hidden;
+}
+.slider ul{
+    display: flex;
+    transition: all 0.5s ease-in-out;
+    width: 200%;
+    overflow: hidden;
+
+}
+
+.slider ul li{
+    width: 50%;
+    padding: 20px;
+    list-style: none;
+    display: flex;
+
+}
+
+.slide {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Softer shadow for a clean look */
+    border-radius: 10px; /* Slightly rounded corners */
+    padding: 20px 30px; /* Add more padding for spacing */
+    color: #676767; /* Text color */
+    line-height: 1.6; /* Improve text readability */
+    background: #fff; /* White background for the card */
+}
+
+.slide img {
+    width: 100px; /* Smaller image size */
+    height: 100px; /* Match width for a perfect circle */
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 15px; /* Add spacing between the image and text */
+    box-shadow: 0 0 0 3px #212ea0; /* Smooth border effect */
+    object-fit: cover; /* Ensure the image fits within the circle */
+}
+
+.user-info {
+    display: flex; /* Align image and text horizontally */
+    align-items: center; /* Center-align the image and text */
+    margin-bottom: 10px; /* Add spacing below the user info */
+}
+
+.user-info h3 {
+    font-size: 18px; /* Adjust font size for the name */
+    font-weight: 700; /* Make the name bold */
+    color: #212ea0; /* Use a strong blue color */
+    margin: 0; /* Remove default margin */
+}
+
+.user-info span {
+    font-size: 14px; /* Smaller font size for the subtitle */
+    color: #676767; /* Subtle gray color */
+    display: block; /* Ensure it appears below the name */
+}
+
+.slide p {
+    font-size: 16px; /* Adjust font size for the testimonial text */
+    color: #000; /* Darker text for better readability */
+    margin: 0; /* Remove default margin */
+    line-height: 1.6; /* Improve text spacing */
+}
+
+/* media query */
+
+@media(max-width: 800px){
+    .Testimonials{
+        padding: 0 40px;
+    }
+    .next, .prev {
+        width: 35px; /* Adjust width for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+    .next img, .prev img {
+        width: 80%; /* Adjust image size for smaller screens */
+    }
+    .Testimonials ul li{
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+    .slide {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+    .slide img {
+        width: 50px; /* Adjust image size for smaller screens */
+        border: 3px solid #212ea0; /* Adjust border size for smaller screens */
+    }
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 670px) {
+    .slider ul {
+        width: 400%; /* Keep the width for 4 testimonials */
+        transform: translateX(0); /* Reset the position */
+        transition: all 0.5s ease-in-out; /* Smooth transition */
+    }
+
+    .slider ul li {
+        width: 100%; /* Display one testimonial at a time */
+    }
+
+    .slide {
+        width: 100%; /* Make the testimonial card take full width */
+    }
+
+    .next, .prev {
+        display: flex; /* Keep the navigation buttons visible */
+    }
+}

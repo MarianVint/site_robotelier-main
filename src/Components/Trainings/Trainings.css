@@ -1,0 +1,156 @@
+.Trainings {
+    margin: 80px auto;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.training_img {
+    flex-basis: 31%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure no overflow from the container */
+    border-radius: 20px; /* Add rounded corners to all containers */
+    position: relative; /* Set position to relative for caption positioning */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Reduce border width to 1px */
+    height: 370px; /* Increase the height slightly */
+    cursor: pointer; /* Change cursor to pointer for hover effect */    
+}
+
+.training_img a {
+    display: flex; /* Ensure the link takes up the full container */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Make the link span the full width of the container */
+    height: 100%; /* Make the link span the full height of the container */
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Inherit text color for captions */
+    position: relative; /* Ensure it works with the caption and hover effects */
+    overflow: hidden; /* Prevent overflow from the link */
+    border-radius: 20px; /* Match the container's rounded corners */
+}
+
+.training_img a:hover {
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.training_img a img {
+    width: auto; /* Allow the image to scale naturally */
+    height: 100%; /* Ensure the image fills the container vertically */
+    object-fit: contain; /* Ensure the entire image is visible without cropping */
+    border-radius: 20px; /* Ensure the images also have rounded corners */
+    display: block;
+}
+
+/* adjust the scaling for the first image */
+.training_img:first-child img {
+    transform: scale(1.08); /* Reset the scale to normal */
+    margin: 0; /* Ensure no additional margins */
+    object-fit: contain; /* Ensure the image fits properly */
+}
+
+.caption {
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #ffffff;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.training_img .caption img {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(212, 216, 255);
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.training_img .caption p {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Add the animated square background */
+.training_img::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-in-out;
+    z-index: 1;
+    border-radius: 10px; /* Match the container's rounded corners */
+}
+
+.training_img:hover::before {
+    transform: translate(-50%, -50%) scale(1); /* Scale the square background */
+}
+
+.training_img:hover .caption {
+    opacity: 1; /* Show caption on hover */
+    transform: translate(-50%, -50%) scale(1.1); /* Slightly scale up the caption */
+}
+
+/* media query */
+
+@media (max-width: 650px) {
+    .Trainings {
+        flex-direction: column;
+        align-items: center; /* Center align the items for smaller screens */
+    }
+
+    .training_img {
+        flex-basis: 40%; /* Reduce the size of the container */
+        margin: 20px 0; /* Add vertical spacing between images */
+        width: 50%; /* Ensure the container takes up 50% of the parent width */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .training_img a img {
+        width: 100%; /* Ensure the image scales to fit the container */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Adjust the image to fit the container */
+    }
+
+    .training_img a::before {
+        content: ''; /* Keep the background visible */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120%;
+        height: 120%;
+        background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+        transform: translate(-50%, -50%) scale(1); /* Keep the background scaled */
+        z-index: 1;
+        border-radius: 10px; /* Match the container's rounded corners */
+    }
+
+    .training_img a .caption {
+        opacity: 1; /* Make the caption always visible */
+        transform: translate(-50%, -50%) scale(1); /* Ensure the caption is properly positioned */
+    }
+
+    .training_img a .caption img {
+        width: 30px; /* Further reduce the size of the caption icon */
+        height: 30px;
+    }
+
+    .training_img a .caption p {
+        font-size: 12px; /* Further reduce the font size for the caption text */
+    }
+}

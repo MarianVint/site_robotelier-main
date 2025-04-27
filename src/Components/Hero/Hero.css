@@ -1,0 +1,44 @@
+.hero{
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 3, 182, 0.5)) ,url('/src/assets/momo_v2.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
+
+.hero-text{
+    max-width: 80%;
+    text-align: center;
+}
+.hero-text h1{
+    Font-size: 60px;
+    font-weight: 600;
+}
+.hero-text p{
+    Font-size: 36px;
+    padding: 10px 0px 20px;
+}
+
+/* media query */
+
+@media (max-width: 850px) {
+    .hero-text h1{
+        Font-size: 40px;
+    }
+}
+
+@media (max-width: 650px) {
+    .hero-text h1{
+        Font-size: 30px;
+        max-width: 400px;
+        margin: auto;
+    }
+    .hero-text p{
+        Font-size: 14px;
+        margin: 14px auto 20px;
+    }
+}

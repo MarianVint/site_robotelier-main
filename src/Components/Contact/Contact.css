@@ -1,0 +1,185 @@
+.user-info {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    gap: 15px; /* Add spacing between the image and the text */
+}
+
+.user-info img {
+    width: 100px; /* Set the size of the image */
+    height: 100px; /* Match width for a perfect circle */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensure the image fits within the circle */
+    box-shadow: 0 0 0 3px #212ea0; /* Smooth border effect */
+}
+
+.user-info h3 {
+    font-size: 18px; /* Adjust font size for the name */
+    font-weight: 700; /* Make the name bold */
+    color: #212ea0; /* Use a strong blue color */
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center-align the text */
+}
+
+.user-info span {
+    font-size: 14px; /* Smaller font size for the subtitle */
+    color: #676767; /* Subtle gray color */
+    display: block; /* Ensure it appears below the name */
+    text-align: center; /* Center-align the text */
+}
+
+.contact {
+    margin: 80px auto;
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* Add spacing between columns */
+}
+
+.contact-left {
+    flex-basis: 30%; /* Left column takes 48% of the width */
+    color: #676767;
+}
+
+.contact-left h3 {
+    font-size: 28px; /* Slightly larger font for the heading */
+    font-weight: 600; /* Make the heading bold */
+    color: #000F38;
+    margin-bottom: 20px;
+}
+
+.contact-left p {
+    font-size: 16px; /* Adjust font size for better readability */
+    line-height: 1.8; /* Improve text spacing */
+    margin-bottom: 20px;
+    color: #676767;
+    max-width: 100%;
+    text-align: justify;
+}
+
+.contact-left ul {
+    padding: 0;
+    margin: 0;
+}
+
+.contact-left ul li {
+    list-style: none;
+    margin-bottom: 15px; /* Add more spacing between items */
+    display: flex;
+    align-items: center;
+    font-size: 18px; /* Adjust font size for labels */
+    color: #000F38;
+}
+
+.contact-left ul li img {
+    width: 45px; /* Slightly smaller icon size */
+    height: 45px; /* Ensure consistent size */
+    margin-right: 15px; /* Add spacing between icon and text */
+    background-color: #e6f0ff; /* Softer background color for icons */
+    border-radius: 50%;
+    padding: 8px; /* Add padding inside the icon */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    overflow: visible;
+}
+
+.contact-left ul li img:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+.contact-left ul li a {
+    text-decoration: none;
+    color: #000F38; /* Ensure the text matches the page aesthetics */
+    font-weight: 500; /* Slightly bold text for better readability */
+    transition: color 0.3s ease; /* Smooth hover effect for text */
+}
+
+.contact-left ul li a:hover {
+    color: #212ea0; /* Change text color on hover */
+}
+
+.contact-right {
+    flex-basis: 65%; /* Right column takes 50% of the width */
+}
+
+.contact-right form {
+    flex-basis: 100%; /* Allow the form to take up the full width of its column */
+    margin-left: 0; /* Align the form closer to the left */
+    margin-top: 20px; /* Add spacing from the top */
+    padding-right: 0; /* Remove unnecessary padding */
+}
+
+.contact-right form input,
+.contact-right form textarea {
+    display: block; /* Ensure inputs are block elements */
+    width: 100%; /* Stretch inputs to fill the form width */
+    background: #EBECFE; /* Softer background color for inputs */
+    padding: 15px; /* Add padding for better usability */
+    margin-bottom: 15px; /* Add spacing between input fields */
+    border: 1px solid #ccc; /* Add a border for input fields */
+    border-radius: 5px; /* Slightly round the corners */
+    font-size: 16px; /* Adjust font size for readability */
+}
+
+.contact-right form textarea {
+    height: 200px; /* Increase the height for more rows */
+}
+
+.contact-right form button {
+    background: #212ea0; /* Button background color */
+    color: #fff; /* Button text color */
+    padding: 12px 20px; /* Add padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Slightly round the corners */
+    font-size: 16px; /* Adjust font size for the button */
+    font-weight: 600; /* Make the button text bold */
+    cursor: pointer; /* Add pointer cursor on hover */
+    transition: background 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.contact-right form button:hover {
+    background: #000F38; /* Darker background on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.contact-right span{
+    display: block;
+    margin: 20px 0;
+}
+
+/* media query */
+
+@media (max-width: 768px) {
+    .contact {
+        flex-direction: column; /* Stack columns on smaller screens */
+        align-items: center; /* Center items horizontally */
+    }
+
+    .contact-left,
+    .contact-right {
+        flex-basis: 100%; /* Allow both columns to take full width */
+        max-width: 100%; /* Ensure no overflow */
+    }
+
+    .contact-left h3 {
+        font-size: 24px; /* Adjust font size for smaller screens */
+    }
+
+    .contact-left ul {
+        display: flex; /* Use flexbox for alignment */
+        flex-direction: column; /* Stack the links vertically */
+        align-items: center; /* Center the links horizontally */
+    }
+
+    .contact-left ul li {
+        text-align: center; /* Center-align the text */
+    }
+
+    .contact-left ul li img {
+        width: 35px; /* Smaller icon size for mobile */
+        height: 35px; /* Ensure consistent size */
+    }
+}
