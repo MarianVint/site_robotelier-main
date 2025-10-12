@@ -84,7 +84,7 @@ const Testimonials = () => {
                 <img src={testimonial_2} alt="" />
                 <div>
                   <h3>Melisa</h3>
-                  <span>Master an I</span>
+                  <span>Master an II</span>
                 </div>
               </div>
               <p>„Pentru mine, Robotelier înseamnă prietenie, provocări și creștere personală.
@@ -114,7 +114,7 @@ const Testimonials = () => {
                 <img src={testimonial_4} alt="" />
                 <div>
                   <h3>Radu</h3>
-                  <span>Lucreaza undeva</span>
+                  <span>Robotelier Alumni</span>
                 </div>
               </div>
               <p>„Ce mi-a plăcut cel mai mult la Robotelier e faptul că aici e OK să nu știi –
