@@ -25,28 +25,30 @@ const About = () => {
       </div>
 
       <div className='about-right'>
-        <h3 className='about-h3'>Despre noi</h3>
-        <h2 className='about-h2'>Ce este ROBOTELIER?</h2>
-
+      <h3 className='about-h3'>Despre noi</h3>
+        <h2 className='about-h2'>Robotelier este locul unde pasiunea pentru tehnologie prinde viață!</h2>
         <p className='about-p'>
-          Robotelier este o comunitate studențească entuziastă din cadrul U.T.Cluj,  
-          unde pasiunea pentru robotică, electronică și programare prinde viață.  
-          Prin ateliere practice și traininguri hands‑on,  
-          membrii își dezvoltă abilități tehnice și colaborează la proiecte inovatoare.
+          Suntem o comunitate studențească din cadrul <strong>Facultății de Inginerie Electrică</strong> a <strong>Universității Tehnice din Cluj-Napoca</strong>, unde pasiunea pentru tehnologie, inovație și colaborare se îmbină perfect.
         </p>
-
         <p className='about-p'>
-          Organizația funcționează pe două direcții complementare:  
-          echipa Tehnică, care concepe materiale educaționale și susține workshopuri,  
-          și echipa Media, care gestionează promovarea online și coordonează evenimente.  
-          Împreună asigurăm vizibilitate și impact pentru toate activitățile noastre.
+          În ultimii ani, Robotelier a devenit un punct de atracție pentru numeroși studenți din diverse facultăți ale universității, dar și pentru elevi de liceu pasionați de tehnologie. Clubul oferă un mediu dinamic și colaborativ, în care membrii învață prin practică, își dezvoltă gândirea inovatoare și lucrează la proiecte din multiple domenii inginerești.
         </p>
-
         <p className='about-p'>
-          Atmosfera în Robotelier este prietenoasă și orientată spre învățare continuă,  
-          încurajând creativitatea și colaborarea.  
-          Fiecare membru aduce idei proaspete,  
-          iar sprijinul reciproc transformă conceptele în realizări concrete.
+          Clubul funcționează pe două direcții complementare:
+        </p>
+        <ul className='about-list'>
+          <li>
+            <strong>Divizia Tehnică (DT)</strong> care, de-a forma ideilor noastre, dezvoltă materiale educaționale, organizează traininguri și oferă suportul necesar pentru ca proiectele noastre să prindă viață;
+          </li>
+          <li>
+            <strong>Divizia Comunicare și Imagine (DCI)</strong> care dă viață poveștii Robotelier, se ocupă de promovarea clubului, de imaginea noastră online și de coordonarea evenimentelor care ne aduc împreună.
+          </li>
+        </ul>
+        <p className='about-p'>
+          Împreună, asigurăm ca fiecare activitate a clubului să aibă <strong>impact</strong> și <strong>vizibilitate</strong>.
+        </p>
+        <p className='about-p'>
+          Atmosfera din Robotelier este una deschisă, creativă și plină de voie bună. Încurajăm curiozitatea, ideile îndrăznețe și dorința de a învăța mereu ceva nou. Fiecare membru aduce un plus de energie și contribuie la transformarea ideilor în proiecte reale.
         </p>
       </div>
 
