@@ -1,18 +1,20 @@
-name: Build and Deploy to FTP
+name: Build and Deploy to SFTP
 
 on:
   push:
     branches:
-      - master   # change this if you want to deploy from another branch
+      - main
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -20,18 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (production)
+      - name: Build project
         run: npm run build
-        # Vite by default outputs to `dist/`. If you use a different build dir, change below.
 
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4
+      - name: Deploy via SFTP (SCP)
+        uses: appleboy/scp-action@v0.1.5
         with:
-          server: ${{ secrets.FTP_HOST }}
+          host: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWD }}
-          local-dir: dist
-          server-dir: ${{ secrets.FTP_PATH }}
-          # delete: true removes files on the server that are not in dist
-          delete: true
-          passive: true
+          port: 22
+          source: "dist/*"
+          target: ${{ secrets.FTP_PATH }}
+          overwrite: true
+          recursive: true
