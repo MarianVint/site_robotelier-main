@@ -3,7 +3,7 @@ name: Build and Deploy to FTP
 on:
   push:
     branches:
-      - main   # change this if you want to deploy from another branch
+      - master   # change this if you want to deploy from another branch
 
 jobs:
   build-and-deploy:
