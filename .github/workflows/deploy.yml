@@ -1,55 +1,18 @@
-name: Build and Deploy via FTPS
-
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
-
+n: push
+name: 🚀 Deploy website on push
 jobs:
-  build-deploy:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: 1. Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: 2. Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: 3. Install Dependencies
-        run: npm ci
-
-      - name: 4. Build Project (Vite)
-        run: npm run build
-
-      - name: 5. Install and Deploy via FTPS
-        env:
-          HOST: ${{ secrets.FTP_HOST }}
-          USER: ${{ secrets.FTP_USER }}
-          PASS: ${{ secrets.FTP_PASSWD }}
-          PATH: ${{ secrets.FTP_PATH }}
-        run: |
-          # First, update package lists and install lftp
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
-          # Second, execute the deployment using lftp
-          lftp -c "
-            # --- FTPS Configuration ---
-            set ftp:ssl-force true
-            set ftp:ssl-protect-data true
-            set ssl:verify-certificate no 
-            
-            # --- Connection & Authentication ---
-            open ftps://$USER:$PASS@$HOST
-
-            # --- Directory Navigation ---
-            lcd dist/
-            cd ${{ env.PATH }}
-            
-            # --- Synchronization ---
-            mirror -R -e --verbose . .
-          "
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: grh44.myukcloud.com
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWD }}
+        protocol: ftps
+        server-dir: /public_test/dist
