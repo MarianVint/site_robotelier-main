@@ -25,29 +25,29 @@ jobs:
       - name: 4. Build Project (Vite)
         run: npm run build
 
-      - name: 5. Deploy via FTPS using lftp
+      # --- NEW STEP: Install lftp using a dedicated Action ---
+      - name: 5. Install lftp Utility
+        uses: crazy-max/ghaction-lftp@v3
+
+      - name: 6. Deploy via FTPS
         env:
           HOST: ${{ secrets.FTP_HOST }}
           USER: ${{ secrets.FTP_USER }}
           PASS: ${{ secrets.FTP_PASSWD }}
           PATH: ${{ secrets.FTP_PATH }}
         run: |
-          # Install lftp tool
-          apt-get update
-          apt-get install -y lftp
+          # The lftp binary is now available via the previous step
 
-          # The lftp command structure for reliable FTPS deployment
           lftp -c "
-            # --- FTPS Configuration (Explicit TLS/SSL required by host) ---
-            set ftp:ssl-force true        # Enforce secure connection
-            set ftp:ssl-protect-data true # Encrypt data channel (essential for FTPS)
+            # --- FTPS Configuration (Explicit TLS/SSL) ---
+            set ftp:ssl-force true
+            set ftp:ssl-protect-data true
             
-            # CRITICAL FIX: Bypass common certificate validation errors 
-            # (often caused by self-signed or incorrectly configured host certificates).
+            # CRITICAL FIX: Bypass certificate validation errors
             set ssl:verify-certificate no 
             
             # --- Connection & Authentication ---
-            # Open connection using the robust user:pass@host URL format
+            # Use the robust user:pass@host URL format
             open ftps://$USER:$PASS@$HOST
 
             # Change local directory to the build output
@@ -56,7 +56,7 @@ jobs:
             # --- Synchronization ---
             # Mirror the local 'dist/' content to the remote path (e.g., /Public)
             # -R: Reverse mirror (upload local to remote)
-            # --delete: Removes remote files that are no longer local (for clean sync)
+            # --delete: Deletes remote files that are no longer local
             mirror -R --delete --verbose $PATH
             
             # Close connection
