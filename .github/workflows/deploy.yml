@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWD }}
           protocol: ftps 
           local-dir: ./dist/
-          server-dir: /public/dist/
+          server-dir: /public/
           
           # FIX: The input 'delete-test' was invalid. 
           # Use 'delete: true' to ensure files that exist on the server 
