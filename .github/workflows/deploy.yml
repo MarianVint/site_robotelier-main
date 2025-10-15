@@ -25,9 +25,12 @@ jobs:
       - name: 4. Build Project (Vite)
         run: npm run build
 
-      # --- NEW STEP: Install lftp using a dedicated Action ---
+      # --- NEW STEP: Install lftp via package manager (Isolated for stability) ---
       - name: 5. Install lftp Utility
-        uses: crazy-max/ghaction-lftp@v3
+        run: |
+          # Running these commands in an isolated step often fixes 'command not found' errors.
+          apt-get update
+          apt-get install -y lftp
 
       - name: 6. Deploy via FTPS
         env:
@@ -36,14 +39,14 @@ jobs:
           PASS: ${{ secrets.FTP_PASSWD }}
           PATH: ${{ secrets.FTP_PATH }}
         run: |
-          # The lftp binary is now available via the previous step
+          # The lftp binary is now available from the previous step
 
           lftp -c "
             # --- FTPS Configuration (Explicit TLS/SSL) ---
             set ftp:ssl-force true
             set ftp:ssl-protect-data true
             
-            # CRITICAL FIX: Bypass certificate validation errors
+            # CRITICAL: Bypass certificate validation errors
             set ssl:verify-certificate no 
             
             # --- Connection & Authentication ---
@@ -53,12 +56,4 @@ jobs:
             # Change local directory to the build output
             lcd dist/
 
-            # --- Synchronization ---
-            # Mirror the local 'dist/' content to the remote path (e.g., /Public)
-            # -R: Reverse mirror (upload local to remote)
-            # --delete: Deletes remote files that are no longer local
-            mirror -R --delete --verbose $PATH
-            
-            # Close connection
-            bye
-          "
+            # ---
