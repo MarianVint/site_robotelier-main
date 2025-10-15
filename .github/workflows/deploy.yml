@@ -11,7 +11,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: grh44.myukcloud.com
+        server: robotelier.utcluj.ro
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASSWD }}
         protocol: ftps
