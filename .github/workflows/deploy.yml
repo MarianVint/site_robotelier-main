@@ -25,14 +25,12 @@ jobs:
       - name: 4. Build Project (Vite)
         run: npm run build
 
-      # --- NEW STEP: Install lftp via package manager (Isolated for stability) ---
       - name: 5. Install lftp Utility
         run: |
-          # Running these commands in an isolated step often fixes 'command not found' errors.
           sudo apt-get update
           sudo apt-get install -y lftp
 
-- name: 6. Deploy via FTPS
+      - name: 6. Deploy via FTPS
         env:
           HOST: ${{ secrets.FTP_HOST }}
           USER: ${{ secrets.FTP_USER }}
@@ -40,18 +38,21 @@ jobs:
           PATH: ${{ secrets.FTP_PATH }}
         run: |
           lftp -c "
+            # --- FTPS Configuration ---
             set ftp:ssl-force true
             set ftp:ssl-protect-data true
             set ssl:verify-certificate no 
             
+            # --- Connection & Authentication ---
             open ftps://$USER:$PASS@$HOST
 
+            # --- Directory Navigation ---
+            # Change local directory to the build output
             lcd dist/
+            # Change remote directory to your specified path
             cd ${{ env.PATH }}
             
-            # Use 'mirror' to upload the 'dist' directory contents
-            # -R means reverse mirror (upload)
-            # -e means delete files on the server that aren't in the source
-            # --verbose shows file transfer progress
+            # --- Synchronization ---
+            # Upload the 'dist' contents, deleting files on the server that no longer exist locally
             mirror -R -e --verbose . .
           "
