@@ -1,4 +1,4 @@
-ame: Build and Deploy via FTPS
+name: Build and Deploy via FTPS
 
 on:
   push:
