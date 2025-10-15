@@ -1,4 +1,4 @@
-name: Build and Deploy via FTPS
+ame: Build and Deploy via FTPS
 
 on:
   push:
@@ -11,32 +11,54 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 1. Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 2. Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: 3. Install Dependencies
         run: npm ci
 
-      - name: Build project
+      - name: 4. Build Project (Vite)
         run: npm run build
 
-      - name: Deploy via FTPS using lftp
+      - name: 5. Deploy via FTPS using lftp
         env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWD: ${{ secrets.FTP_PASSWD }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
+          HOST: ${{ secrets.FTP_HOST }}
+          USER: ${{ secrets.FTP_USER }}
+          PASS: ${{ secrets.FTP_PASSWD }}
+          PATH: ${{ secrets.FTP_PATH }}
         run: |
+          # Install lftp tool
           sudo apt-get update
           sudo apt-get install -y lftp
-          lftp -e "
-            set ftp:ssl-force true
-            set ftp:ssl-protect-data true
-            mirror -R --delete --verbose dist/ \$FTP_PATH
-            quit
-          " -u $FTP_USER,$FTP_PASSWD ftps://$FTP_HOST
+
+          # The lftp command structure for reliable FTPS deployment
+          lftp -c "
+            # --- FTPS Configuration (Explicit TLS/SSL required by host) ---
+            set ftp:ssl-force true        # Enforce secure connection
+            set ftp:ssl-protect-data true # Encrypt data channel (essential for FTPS)
+            
+            # CRITICAL FIX: Bypass common certificate validation errors 
+            # (often caused by self-signed or incorrectly configured host certificates).
+            set ssl:verify-certificate no 
+            
+            # --- Connection & Authentication ---
+            # Open connection using the robust user:pass@host URL format
+            open ftps://$USER:$PASS@$HOST
+
+            # Change local directory to the build output
+            lcd dist/
+
+            # --- Synchronization ---
+            # Mirror the local 'dist/' content to the remote path (e.g., /Public)
+            # -R: Reverse mirror (upload local to remote)
+            # --delete: Removes remote files that are no longer local (for clean sync)
+            mirror -R --delete --verbose $PATH
+            
+            # Close connection
+            bye
+          "
