@@ -25,18 +25,18 @@ jobs:
       - name: 4. Build Project (Vite)
         run: npm run build
 
-      - name: 5. Install lftp Utility
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
-      - name: 6. Deploy via FTPS
+      - name: 5. Install and Deploy via FTPS
         env:
           HOST: ${{ secrets.FTP_HOST }}
           USER: ${{ secrets.FTP_USER }}
           PASS: ${{ secrets.FTP_PASSWD }}
           PATH: ${{ secrets.FTP_PATH }}
         run: |
+          # First, update package lists and install lftp
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+          # Second, execute the deployment using lftp
           lftp -c "
             # --- FTPS Configuration ---
             set ftp:ssl-force true
@@ -47,12 +47,9 @@ jobs:
             open ftps://$USER:$PASS@$HOST
 
             # --- Directory Navigation ---
-            # Change local directory to the build output
             lcd dist/
-            # Change remote directory to your specified path
             cd ${{ env.PATH }}
             
             # --- Synchronization ---
-            # Upload the 'dist' contents, deleting files on the server that no longer exist locally
             mirror -R -e --verbose . .
           "
