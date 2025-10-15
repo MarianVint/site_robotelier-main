@@ -32,28 +32,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lftp
 
-      - name: 6. Deploy via FTPS
+- name: 6. Deploy via FTPS
         env:
           HOST: ${{ secrets.FTP_HOST }}
           USER: ${{ secrets.FTP_USER }}
           PASS: ${{ secrets.FTP_PASSWD }}
           PATH: ${{ secrets.FTP_PATH }}
         run: |
-          # The lftp binary is now available from the previous step
-
           lftp -c "
-            # --- FTPS Configuration (Explicit TLS/SSL) ---
             set ftp:ssl-force true
             set ftp:ssl-protect-data true
-            
-            # CRITICAL: Bypass certificate validation errors
             set ssl:verify-certificate no 
             
-            # --- Connection & Authentication ---
-            # Use the robust user:pass@host URL format
             open ftps://$USER:$PASS@$HOST
 
-            # Change local directory to the build output
             lcd dist/
-
-            # ---
+            cd ${{ env.PATH }}
+            
+            # Use 'mirror' to upload the 'dist' directory contents
+            # -R means reverse mirror (upload)
+            # -e means delete files on the server that aren't in the source
+            # --verbose shows file transfer progress
+            mirror -R -e --verbose . .
+          "
