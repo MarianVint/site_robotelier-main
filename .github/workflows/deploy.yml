@@ -15,4 +15,4 @@ jobs:
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASSWD }}
         protocol: ftps
-        server-dir: /public_test/dist
+        server-dir: /public_test/dist/
