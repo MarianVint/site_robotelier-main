@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-  # Allows you to manually run the workflow from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -16,35 +15,28 @@ jobs:
       - name: 1. 🚚 Get latest code
         uses: actions/checkout@v4
 
-      # --- START BUILD PROCESS ---
       - name: 2. 🛠️ Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # Use the version appropriate for your project
+          node-version: 18
 
       - name: 3. 📦 Install Dependencies
-        # npm ci is used for clean installs in CI environments
         run: npm ci
 
       - name: 4. ⚙️ Build Project (Creates the 'dist' folder)
         run: npm run build
-      # --- END BUILD PROCESS ---
 
       - name: 5. 📂 Deploy files via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # Required Credentials & Protocol
-          server: ${{ secrets.FTP_HOST }} # Using the secret variable for the hostname
+          server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWD }}
-          protocol: ftps # Matches your explicit TLS/SSL requirement
-
-          # Directory Settings
-          # Upload the contents *of* the local 'dist' folder...
+          protocol: ftps 
           local-dir: ./dist/
-          # ...to this remote directory (note: this remote path seems quite specific)
           server-dir: /public_test/dist/
           
-          # Deployment Options
-          # Ensures a clean deployment by removing older files
-          delete-test: true 
+          # FIX: The input 'delete-test' was invalid. 
+          # Use 'delete: true' to ensure files that exist on the server 
+          # but not in the local 'dist/' folder are removed.
+          delete: true 
