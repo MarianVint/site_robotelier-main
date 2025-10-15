@@ -29,8 +29,8 @@ jobs:
       - name: 5. Install lftp Utility
         run: |
           # Running these commands in an isolated step often fixes 'command not found' errors.
-          apt-get update
-          apt-get install -y lftp
+          sudo apt-get update
+          sudo apt-get install -y lftp
 
       - name: 6. Deploy via FTPS
         env:
